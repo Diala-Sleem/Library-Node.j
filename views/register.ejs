@@ -1,0 +1,70 @@
+<%-include('parts/nav.ejs')%>
+
+<div class="page-content header-text">
+  <div class="container">
+    <div class="row justify-content-md-center align-items-center">
+      <div class="col col-lg-6">
+        <div style="margin-top: 140px; padding: 20px">
+          <div class="col-md-12">
+            <div class="contact-form">
+              <form id="contact" action="" method="post">
+                <div class="row">
+
+                    <form  method="POST" 
+                        action="/register">
+                      <div class="col-lg-12 col-md-12 col-sm-12">
+                      <input
+                        name="fullName"
+                        type="text"
+                        class="form-control"
+                        id="name"
+                        placeholder="Full Name"
+                      />
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                      <input
+                        name="email"
+                        type="text"
+                        class="form-control"
+                        id="email"
+                        placeholder="E-Mail Address"
+                      />
+                  </div>
+
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                      <input
+                        name="password"
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        placeholder="Password"
+                        autocomplete="on"
+                      />
+                  </div>
+
+                  <div class="col-lg-12">
+                      <button
+                       
+                        type="submit"
+                        id="form-submit"
+                        class="filled-button"
+                      >
+                        Register
+                      </button>
+                  </div>
+                      
+                      
+                      </form>
+                  
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%-include('parts/footer.ejs')%>
