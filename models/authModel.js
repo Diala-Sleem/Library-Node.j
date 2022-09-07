@@ -61,3 +61,33 @@ exports.registerFunctionModel = (fullName, email, password) => {
       });
   });
 };
+
+//----------------------------------------------------------------
+exports.loginFunctionModel = (email, password) => {
+  //test email if exist (true go to login) (false add this user to users collection)
+  //
+  return new Promise((resolve, reject) => {
+    mongoose
+      .connect(url)
+      .then(() => {
+        return User.findOne({ email: email });
+      })
+
+      .then((user) => {
+        if (user) {
+          bcrypt.compare(password, user.password).then((verify) => {
+            if (verify) {
+              mongoose.disconnect();
+              resolve(user._id);
+            } else {
+              mongoose.disconnect();
+              reject("invalid password");
+            }
+          });
+        } else {
+          mongoose.disconnect();
+          reject("we don't have this user in the database");
+        }
+      }).catch(() => {reject(err)})
+  });
+};

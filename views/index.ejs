@@ -2,6 +2,7 @@
 
 <!-- Page Content -->
 <!-- Banner Starts Here -->
+
 <div class="banner header-text">
   <div class="owl-banner owl-carousel">
     <div class="banner-item-01">
@@ -25,6 +26,7 @@
   </div>
 </div>
 <!-- Banner Ends Here -->
+<%if(verifyUser) {%>
 
 <div class="latest-products">
   <div class="container">
@@ -41,14 +43,16 @@
       <% for (let book of books) {%>
       <div class="col-md-4">
         <div class="product-item">
-          <a href="/books/<%=book._id%>" target="_blank"><img src="/images/<%=book.image%>" alt="" /></a>
+          <a href="/books/<%=book._id%>" target="_blank"
+            ><img src="/images/<%=book.image%>" alt=""
+          /></a>
           <div class="down-content">
-            <a href="/books/<%=book._id%>" target="_blank" ><h4><%=book.title %></h4></a>
+            <a href="/books/<%=book._id%>" target="_blank"
+              ><h4><%=book.title %></h4></a
+            >
             <h6>$<%=book.price %></h6>
-            <p><%=book.description%>
-            
-            </p>
-<a href="/books/<%=book._id%>" >Read more</a>
+            <p><%=book.description%></p>
+            <a href="/books/<%=book._id%>">Read more</a>
             <ul class="stars">
               <li><i class="fa fa-star"></i></li>
               <li><i class="fa fa-star"></i></li>
@@ -133,5 +137,4 @@
     </div>
   </div>
 </div>
-
-<%-include('parts/footer.ejs')%>
+<%}%> <%-include('parts/footer.ejs')%>
