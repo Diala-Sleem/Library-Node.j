@@ -1,7 +1,7 @@
 const authModel = require("../models/authModel");
 
 exports.getRegisterPage = (req, res, next) => {
-  res.render("register",{ verifyUser: req.session.userId });
+  res.render("register", { verifyUser: req.session.userId,message:req.flash('error')[0] });
 };
 
 exports.postRegisterData = (req, res, next) => {
@@ -10,15 +10,20 @@ exports.postRegisterData = (req, res, next) => {
     .then((user) => {
       res.redirect("/login");
     })
-    .catch((msg) => {
-      console.log(msg);
+    .catch((err) => {
+      console.log(err);
+      req.flash("error", err);
+      res.redirect("/register");
     });
 };
 
 //----------------------------------------------------------------
 
 exports.getLoginPage = (req, res, next) => {
-  res.render("login", { verifyUser: req.session.userId });
+  res.render("login", {
+    verifyUser: req.session.userId,
+    message: req.flash('error')[0],
+  });
 };
 
 exports.postLoginData = (req, res, next) => {
@@ -30,14 +35,13 @@ exports.postLoginData = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
+      req.flash("error", err);
+      res.redirect("/login");
     });
 };
 
-
-
 exports.postLogoutData = (req, res, next) => {
   req.session.destroy(() => {
-      res.redirect("/");
-
-  })
+    res.redirect("/");
+  });
 };

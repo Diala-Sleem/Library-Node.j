@@ -1,19 +1,22 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-//------------session and connect mongodb session used to store data on the browser 
+//----------------------connect flash to send the error message to the client------------------------
+const flash = require("connect-flash");
+//------------session and connect mongodb session used to store data on the browser
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 //.........import the router...................
-const homeBookRoute = require("./routers/homeBookRoute");
-const booksBookRoute = require("./routers/booksBookRoute");
-const authRoute = require("./routers/authRouter")
-
+const homeBookRoute = require("./routers/homeBookRouter");
+const booksBookRoute = require("./routers/booksBookRouter");
+const authRoute = require("./routers/authRouter");
+const contactRoute = require("./routers/contactRouter");
+const aboutRoute = require("./routers/aboutRouter");
 //....................... static file ............................
 app.use(express.static(path.join(__dirname, "assets")));
 app.set("view engine", "ejs");
 app.set("views", "views");
-//-----------------------------create store-----------------------------------
+//-----------------------------create store for Sessions-----------------------------------
 var store = new MongoDBStore({
   uri: "mongodb://localhost:27017/library",
   collection: "mySessions",
@@ -30,29 +33,34 @@ app.use(
     saveUninitialized: true,
   })
 );
-
+//-------use flash as middleware
+app.use(flash());
 //------------------------
 
 app.use("/", homeBookRoute);
-app.use("/books", booksBookRoute);
+app.use("/", booksBookRoute);
 app.use("/", authRoute);
+app.use("/", contactRoute);
+app.use("/", aboutRoute);
 
-// app.get("/books/details/:id", (req, res, next) => {
-//   let id = req.params;
-//   res.render("details.id");
-// });
+app.get("/admin", (req, res, next) => {
+  res.render("admin/index.ejs");
+});
 
-// app.get("/about", (req, res, next) => {
-//   res.render("about");
-// });
+app.get("/admin/charts", (req, res, next) => {
+  res.render("admin/charts.ejs");
+});
 
-// app.get("/contact", (req, res, next) => {
-//   res.render("contact");
-// });
+app.get("/admin/cards", (req, res, next) => {
+  res.render("admin/cards.ejs");
+});
 
-// app.get("/login", (req, res, next) => {
-//   res.render("login");
-// });
+
+app.get("/admin/tables", (req, res, next) => {
+  res.render("admin/tables.ejs");
+});
+
+
 
 
 //----------------------------------------------------------------

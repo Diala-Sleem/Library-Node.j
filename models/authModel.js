@@ -86,7 +86,7 @@ exports.loginFunctionModel = (email, password) => {
           });
         } else {
           mongoose.disconnect();
-          reject("we don't have this user in the database");
+          reject("Email is not valid please try again or  register");
         }
       }).catch(() => {reject(err)})
   });
